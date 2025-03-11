@@ -67,7 +67,12 @@ class AppConfig {
         fun getResourcesSampleDirPath(): String {
             if (resourcesSampleDirPath == null) {
                 val resource = ClassPathResource("sample")
-                resourcesSampleDirPath = resource.file.absolutePath
+
+                resourcesSampleDirPath = if (resource.exists()) {
+                    resource.file.absolutePath
+                } else {
+                    "src/main/resources/sample"
+                }
             }
 
             return resourcesSampleDirPath!!

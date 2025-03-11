@@ -96,7 +96,11 @@ class SecurityConfig(
         val configuration = CorsConfiguration()
 
         // 허용할 오리진 설정
-        configuration.allowedOrigins = listOf("https://cdpn.io", AppConfig.getSiteFrontUrl())
+        configuration.allowedOrigins = listOf(
+            "https://cdpn.io",
+            AppConfig.getSiteBackUrl(),
+            AppConfig.getSiteFrontUrl()
+        )
 
         // 허용할 HTTP 메서드 설정
         configuration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE")

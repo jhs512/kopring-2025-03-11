@@ -85,3 +85,13 @@ allOpen {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.processResources {
+    exclude("sample/**")
+}
+
+tasks.processTestResources {
+    from("src/main/resources/sample") {
+        into("sample")
+    }
+}

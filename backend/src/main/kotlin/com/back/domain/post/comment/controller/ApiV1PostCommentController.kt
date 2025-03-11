@@ -32,7 +32,7 @@ class ApiV1PostCommentController(
         val post = postService.findById(postId).orElseThrow {
             ServiceException(
                 "404-1",
-                "%d번 글은 존재하지 않습니다.".formatted(postId)
+                "${postId}번 글은 존재하지 않습니다."
             )
         }
 
@@ -73,7 +73,7 @@ class ApiV1PostCommentController(
 
         return RsData(
             "200-1",
-            "%d번 댓글이 삭제되었습니다.".formatted(id)
+            "${id}번 댓글이 삭제되었습니다."
         )
     }
 
@@ -95,7 +95,7 @@ class ApiV1PostCommentController(
         val post = postService.findById(postId).orElseThrow {
             ServiceException(
                 "404-1",
-                "%d번 글은 존재하지 않습니다.".formatted(postId)
+                "${postId}번 글은 존재하지 않습니다."
             )
         }
 
@@ -147,7 +147,7 @@ class ApiV1PostCommentController(
 
         return RsData(
             "201-1",
-            "%d번 댓글이 생성되었습니다.".formatted(postComment.id),
+            "${postComment.id}번 댓글이 생성되었습니다.",
             PostCommentDto(postComment)
         )
     }

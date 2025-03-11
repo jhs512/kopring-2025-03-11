@@ -8,7 +8,6 @@ import com.back.standard.base.Empty
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.FieldError
-
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -44,7 +43,7 @@ class GlobalExceptionHandler {
             .body(
                 RsData(
                     "413-1",
-                    "업로드되는 파일의 용량은 %s(을)를 초과할 수 없습니다.".formatted(getSpringServletMultipartMaxFileSize())
+                    "업로드되는 파일의 용량은 ${getSpringServletMultipartMaxFileSize()}(을)를 초과할 수 없습니다."
                 )
             )
     }
