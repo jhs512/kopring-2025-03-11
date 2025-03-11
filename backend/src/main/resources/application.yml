@@ -74,6 +74,7 @@ springdoc:
   default-produces-media-type: application/json;charset=UTF-8
 logging:
   level:
+    com.back: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
     org.hibernate.orm.jdbc.extract: TRACE
