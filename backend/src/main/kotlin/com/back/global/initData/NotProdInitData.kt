@@ -4,7 +4,6 @@ import com.back.domain.member.member.service.MemberService
 import com.back.domain.post.genFile.entity.PostGenFile
 import com.back.domain.post.post.service.PostService
 import com.back.global.app.AppConfig.Companion.getGenFileDirPath
-import com.back.global.app.AppConfig.Companion.isNotProd
 import com.back.global.app.AppConfig.Companion.isTest
 import com.back.global.app.CustomConfigProperties
 import com.back.standard.sampleResource.SampleResource
@@ -14,18 +13,20 @@ import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
+import org.springframework.context.annotation.Profile
 import org.springframework.transaction.annotation.Transactional
 import java.util.stream.IntStream
 
+@Profile("!prod")
 @Configuration
-class BaseInitData(
+class NotProdInitData(
     private val customConfigProperties: CustomConfigProperties,
     private val memberService: MemberService,
     private val postService: PostService
 ) {
     @Autowired
     @Lazy
-    private lateinit var self: BaseInitData
+    private lateinit var self: NotProdInitData
 
     @Bean
     fun baseInitDataApplicationRunner(): ApplicationRunner {
@@ -44,28 +45,28 @@ class BaseInitData(
         }
 
         val memberSystem = memberService.join("system", "1234", "시스템", "")
-        if (isNotProd()) memberSystem.apiKey = "system"
+        memberSystem.apiKey = "system"
 
         val memberAdmin = memberService.join("admin", "1234", "관리자", "")
-        if (isNotProd()) memberAdmin.apiKey = "admin"
+        memberAdmin.apiKey = "admin"
 
         val memberUser1 = memberService.join("user1", "1234", "유저1", "")
-        if (isNotProd()) memberUser1.apiKey = "user1"
+        memberUser1.apiKey = "user1"
 
         val memberUser2 = memberService.join("user2", "1234", "유저2", "")
-        if (isNotProd()) memberUser2.apiKey = "user2"
+        memberUser2.apiKey = "user2"
 
         val memberUser3 = memberService.join("user3", "1234", "유저3", "")
-        if (isNotProd()) memberUser3.apiKey = "user3"
+        memberUser3.apiKey = "user3"
 
         val memberUser4 = memberService.join("user4", "1234", "유저4", "")
-        if (isNotProd()) memberUser4.apiKey = "user4"
+        memberUser4.apiKey = "user4"
 
         val memberUser5 = memberService.join("user5", "1234", "유저5", "")
-        if (isNotProd()) memberUser5.apiKey = "user5"
+        memberUser5.apiKey = "user5"
 
         val memberUser6 = memberService.join("user6", "1234", "유저6", "")
-        if (isNotProd()) memberUser6.apiKey = "user6"
+        memberUser6.apiKey = "user6"
 
         for (notProdMember in customConfigProperties.notProdMembers) {
             val member = memberService.join(
@@ -75,7 +76,7 @@ class BaseInitData(
                 notProdMember.profileImgUrl
             )
 
-            if (isNotProd()) member.apiKey = notProdMember.apiKey()
+            member.apiKey = notProdMember.apiKey()
         }
     }
 
