@@ -20,3 +20,7 @@ primary_region = 'nrt'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+
+[mounts]
+source = "jhs512_glog_1__gen" # 볼륨 이름
+destination = "/gen" # 도커 컨테이너 내부에 마운트할 경로
