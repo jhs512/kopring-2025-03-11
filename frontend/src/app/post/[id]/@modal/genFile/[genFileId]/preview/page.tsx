@@ -5,7 +5,7 @@ import ClientPage from "./ClientPage";
 export default async function Page({
   params,
 }: {
-  params: { id: string; genFileId: string };
+  params: Promise<{ id: string; genFileId: string }>;
 }) {
   const { id, genFileId } = await params;
 

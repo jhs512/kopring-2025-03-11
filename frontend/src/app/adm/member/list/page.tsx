@@ -7,12 +7,12 @@ import ClientPage from "./ClientPage";
 export default async function Page({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     searchKeywordType?: "all" | "username" | "nickname";
     searchKeyword?: string;
     pageSize?: number;
     page?: number;
-  };
+  }>;
 }) {
   const {
     searchKeyword = "",
