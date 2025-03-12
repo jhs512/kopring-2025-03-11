@@ -1,7 +1,9 @@
 package com.back.standard.util
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.back.global.app.AppConfig
+import com.back.standard.extensions.base64Decode
+import com.back.standard.extensions.base64Encode
+import com.fasterxml.jackson.databind.ObjectMapper
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.web.multipart.MultipartFile
@@ -234,7 +236,7 @@ object Ut {
             val originalFileName = Path.of(filePath).fileName.toString()
 
             return if (originalFileName.contains(ORIGINAL_FILE_NAME_SEPARATOR))
-                originalFileName.substring(originalFileName.indexOf(ORIGINAL_FILE_NAME_SEPARATOR) + ORIGINAL_FILE_NAME_SEPARATOR.length)
+                originalFileName.substring(originalFileName.indexOf(ORIGINAL_FILE_NAME_SEPARATOR) + ORIGINAL_FILE_NAME_SEPARATOR.length).base64Decode()
             else
                 originalFileName
         }
@@ -343,9 +345,9 @@ object Ut {
             if (multipartFile.isEmpty) return ""
 
             val fileName = if (str.isBlank(metaStr))
-                "${UUID.randomUUID()}$ORIGINAL_FILE_NAME_SEPARATOR${multipartFile.originalFilename}"
+                "${UUID.randomUUID()}$ORIGINAL_FILE_NAME_SEPARATOR${multipartFile.originalFilename!!.base64Encode()}"
             else
-                "$metaStr$META_STR_SEPARATOR${UUID.randomUUID()}$ORIGINAL_FILE_NAME_SEPARATOR${multipartFile.originalFilename}"
+                "$metaStr$META_STR_SEPARATOR${UUID.randomUUID()}$ORIGINAL_FILE_NAME_SEPARATOR${multipartFile.originalFilename!!.base64Encode()}"
 
             val filePath = "$dirPath/$fileName"
 
