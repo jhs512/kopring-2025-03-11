@@ -20,6 +20,7 @@ class AppConfig {
         private lateinit var environment: Environment
         private lateinit var objectMapper: ObjectMapper
         private lateinit var tika: Tika
+        private lateinit var siteCookieDomain: String
         private lateinit var siteFrontUrl: String
         private lateinit var siteBackUrl: String
         private lateinit var genFileDirPath: String
@@ -44,6 +45,9 @@ class AppConfig {
 
         @JvmStatic
         fun getTika(): Tika = tika
+
+        @JvmStatic
+        fun getSiteCookieDomain(): String = siteCookieDomain
 
         @JvmStatic
         fun getSiteFrontUrl(): String = siteFrontUrl
@@ -92,6 +96,11 @@ class AppConfig {
     @Autowired
     fun setTika(tika: Tika) {
         Companion.tika = tika
+    }
+
+    @Value("\${custom.site.cookieDomain}")
+    fun setSiteCookieDomain(siteCookieDomain: String) {
+        Companion.siteCookieDomain = siteCookieDomain
     }
 
     @Value("\${custom.site.frontUrl}")

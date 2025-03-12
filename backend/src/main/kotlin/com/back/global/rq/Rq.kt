@@ -2,6 +2,7 @@ package com.back.global.rq
 
 import com.back.domain.member.member.entity.Member
 import com.back.domain.member.member.service.MemberService
+import com.back.global.app.AppConfig
 import com.back.global.security.SecurityUser
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -46,10 +47,18 @@ class Rq(
             }
         }
 
+    private fun cookieDomain(): String {
+        val domain = AppConfig.getSiteCookieDomain()
+
+        if (domain == "localhost") return domain
+
+        return ".$domain"
+    }
+
     fun setCookie(name: String, value: String) {
         val cookie = ResponseCookie.from(name, value)
             .path("/")
-            .domain("localhost")
+            .domain(cookieDomain())
             .sameSite("Strict")
             .secure(true)
             .httpOnly(true)
